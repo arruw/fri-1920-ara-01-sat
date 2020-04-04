@@ -4,6 +4,9 @@ from src.libs.cnf import equal_one_cnf, less_equal_one_cnf, print_cnf_sat
 
 
 def nq_sat(n: int) -> Tuple[int, List[List[int]]]:
+  """
+  Generate list of CNF clauses to solve N-queens problem
+  """
   clause: List[List[int]] = []
   for x in range(n):
     # rows & columns
@@ -24,6 +27,9 @@ def var(i: int, j: int, n: int) -> int:
 
 
 def diagonals(n: int) -> List[List[int]]:
+  """
+  Return all possible diagonals
+  """
   d = []
   for x in range(n):
     d.append([var(x+j, j, n) for j in range(n) if x+j <  n])
