@@ -1,7 +1,7 @@
 SHELL 	:= /bin/bash
 VENV 		:= .env/bin
 VERB  	:= 0
-THREADS := 1
+THREADS := $(shell nproc)
 PYTHONPATH=$(shell pwd)
 
 .EXPORT_ALL_VARIABLES:
@@ -16,8 +16,15 @@ install:
 
 nq_sat: N=4
 nq_sat:
-	$(VENV)/python3 src/nq_sat.py $(N) > output/sat_nq.dimacs
-	cat output/sat_nq.dimacs | docker run --rm -i msoos/cryptominisat --verb $(VERB) --threads $(THREADS) ||:
+	$(VENV)/python3 src/reduce_nq_sat.py $(N) > output/sat_nq.dimacs
+	docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs ||:
+
+clique_sat: G=input/g2.col
+clique_sat: K=2
+clique_sat:
+	$(VENV)/python3 src/reduce_clique_sat.py $(G) $(K) > output/sat_clique.dimacs
+	docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs ||:
+
 
 test:
 		$(VENV)/python3 -m unittest discover --verbose

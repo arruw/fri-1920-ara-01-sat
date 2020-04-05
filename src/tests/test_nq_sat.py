@@ -1,6 +1,6 @@
 import unittest
 
-from src.nq_sat import diagonals
+from src.reduce_nq_sat import diagonals
 
 class TestNqSat(unittest.TestCase):
 
