@@ -9,7 +9,7 @@ def read_dimacs_graph(filePath: str) -> Graph:
   """
   def transform(line: str) -> Tuple[int]:
     _, i, j = line.rstrip().split(' ')
-    return (int(i), int(j))
+    return (int(i)-1, int(j)-1)
 
   with open(filePath) as f:
     lines = f.readlines()

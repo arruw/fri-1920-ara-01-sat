@@ -16,15 +16,18 @@ install:
 
 nq_sat: N=4
 nq_sat:
-	$(VENV)/python3 src/reduce_nq_sat.py $(N) > output/sat_nq.dimacs
-	docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs ||:
+	@$(VENV)/python3 src/reduce_nq_sat.py $(N) > output/sat_nq.dimacs
+	@docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_nq.solution ||:
+	@cat output/sat_nq.solution
+	@cat output/sat_nq.solution | $(VENV)/python3 src/map.py $(N)
 
 clique_sat: G=input/g2.col
 clique_sat: K=2
 clique_sat:
-	$(VENV)/python3 src/reduce_clique_sat.py $(G) $(K) > output/sat_clique.dimacs
-	docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs ||:
-
+	@$(VENV)/python3 src/reduce_clique_sat.py $(G) $(K) > output/sat_clique.dimacs
+	@docker run --rm -i -v "$(shell pwd)/output/sat_clique.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_clique.solution ||:
+	@cat output/sat_clique.solution
+	@cat output/sat_clique.solution | $(VENV)/python3 src/map.py $(K)
 
 test:
 		$(VENV)/python3 -m unittest discover --verbose
