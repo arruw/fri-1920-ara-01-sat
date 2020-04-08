@@ -29,6 +29,14 @@ clique_sat:
 	@cat output/sat_clique.solution
 	@cat output/sat_clique.solution | $(VENV)/python3 src/map.py $(K)
 
+ds_sat: G=input/g2.col
+ds_sat: K=2
+ds_sat:
+	@$(VENV)/python3 src/reduce_ds_sat.py $(G) $(K) > output/sat_ds.dimacs
+	@docker run --rm -i -v "$(shell pwd)/output/sat_ds.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_ds.solution ||:
+	@cat output/sat_ds.solution
+	@cat output/sat_ds.solution | $(VENV)/python3 src/map.py $(K)
+
 test:
 		$(VENV)/python3 -m unittest discover --verbose
 

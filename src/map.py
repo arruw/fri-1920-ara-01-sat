@@ -1,7 +1,6 @@
 import sys
-import matplotlib.pyplot as plt
-import networkx as nx
 from src.libs.vars import dec2d
+
 
 if __name__ == "__main__":
   n = int(sys.argv[1])
