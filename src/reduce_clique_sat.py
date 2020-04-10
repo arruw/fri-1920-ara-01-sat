@@ -1,21 +1,19 @@
 import sys
-import matplotlib.pyplot as plt
+import os
 import networkx as nx
-import math
 
 from typing import List, Tuple
-from src.libs.cnf import equal_one_cnf, less_equal_one_cnf, print_cnf_sat
+from src.libs.cnf import print_cnf_sat
 from src.libs.graph import read_dimacs_graph
-from src.libs.vars import enc2d, dec2d
-from networkx.algorithms.approximation.clique import large_clique_size
+from src.libs.vars import enc2d
+
 
 def reduce_clique_sat(G: nx.Graph, k: int) -> Tuple[int, List[List[int]]]:
   """
-  Reduce clique problem to SAT, for graph G = <V, E> check if graph contains clique of size >= k
+  Reduce clique problem to SAT
 
   Resources:
     - https://blog.computationalcomplexity.org/2006/12/reductions-to-sat.html
-    - https://cs.stackexchange.com/questions/70531/reduction-3sat-and-clique
   """
   n = G.number_of_nodes()
   clauses: List[List[int]] = []
@@ -40,8 +38,11 @@ def reduce_clique_sat(G: nx.Graph, k: int) -> Tuple[int, List[List[int]]]:
   return (n*k, clauses)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and os.getenv("DEBUG", "false") != "true":
   graphFile = sys.argv[1]
   k = int(sys.argv[2])
   sat_result = reduce_clique_sat(read_dimacs_graph(graphFile), k)
+  print_cnf_sat(sat_result)
+else:
+  sat_result = reduce_clique_sat(read_dimacs_graph("input/test_rocket.col"), 3)
   print_cnf_sat(sat_result)

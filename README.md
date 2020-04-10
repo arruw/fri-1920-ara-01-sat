@@ -14,6 +14,12 @@ $ make nq_sat N=4
 # solve k-clique problem
 $ make clique_sat G=input/g2.col K=2
 
+# solve vertex cover problem
+$ make vc_sat G=input/g2.col K=2
+
+# solve dominanting set problem
+$ make ds_sat G=input/g2.col K=2
+
 # run unit tests
 $ make test
 

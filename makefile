@@ -1,6 +1,7 @@
 SHELL 	:= /bin/bash
 VENV 		:= .env/bin
 VERB  	:= 0
+SEED    := 0
 THREADS := $(shell nproc)
 PYTHONPATH=$(shell pwd)
 
@@ -28,6 +29,14 @@ clique_sat:
 	@docker run --rm -i -v "$(shell pwd)/output/sat_clique.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_clique.solution ||:
 	@cat output/sat_clique.solution
 	@cat output/sat_clique.solution | $(VENV)/python3 src/map.py $(K)
+
+vc_sat: G=input/g2.col
+vc_sat: K=2
+vc_sat:
+	@$(VENV)/python3 src/reduce_vc_sat.py $(G) $(K) > output/sat_vc.dimacs
+	@docker run --rm -i -v "$(shell pwd)/output/sat_vc.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_vc.solution ||:
+	@cat output/sat_vc.solution
+	@cat output/sat_vc.solution | $(VENV)/python3 src/map.py $(K)
 
 ds_sat: G=input/g2.col
 ds_sat: K=2

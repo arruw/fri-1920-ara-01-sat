@@ -1,12 +1,14 @@
 import sys
+import os
+
 from typing import List, Tuple
 from src.libs.cnf import equal_one_cnf, less_equal_one_cnf, print_cnf_sat
 from src.libs.vars import enc2d
 
 
-def nq_sat(n: int) -> Tuple[int, List[List[int]]]:
+def reduce_nq_sat(n: int) -> Tuple[int, List[List[int]]]:
   """
-  Generate list of CNF clauses to solve N-queens problem
+  Reduce N-queens problem to SAT
   """
   clause: List[List[int]] = []
   for x in range(n):
@@ -33,7 +35,10 @@ def diagonals(n: int) -> List[List[int]]:
   return d
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and os.getenv("DEBUG", "false") != "true":
   n = int(sys.argv[1])
-  sat_result = nq_sat(n)
+  sat_result = reduce_nq_sat(n)
+  print_cnf_sat(sat_result)
+else:
+  sat_result = reduce_nq_sat(4)
   print_cnf_sat(sat_result)
