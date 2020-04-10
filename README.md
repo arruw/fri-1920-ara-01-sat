@@ -1,10 +1,18 @@
 # Approximation and randomized algorithms - Assignment 01 - SAT 
 
+Implemented reductions to the SAT:
+- N-queens
+- Clique
+- Vertex cover
+- Dominanting set
+
+Final report is located [here](report/main.pdf).
+
 ## Requirements
 - Ensure you have installed: `make`, `python3`, `docker`
 - Install local virtual env and install pip packages: `make install`
 
-## Dominanting sets
+## Assignment solutions
 ```bash
 $ make ds_sat G=input/g1.col K=40   # ~10 minutes to solve
 $ make ds_sat G=input/g2.col K=3    # ~1 second to solve

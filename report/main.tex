@@ -101,10 +101,10 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 \maketitle
 
-\section*{1. Reduction N-queens problem to SAT}
-Code for the reduction of N-queens to SAT problem is available in \textit{src/reduce\_nq\_sat.py}.
+\section*{1. Reduction of the N-queens problem to SAT}
+Code for the reduction of the N-queens to SAT problem is available in \textit{src/reduce\_nq\_sat.py}.
 
-\section*{2. Reduction dominanting set problem to SAT}
+\section*{2. Reduction of the dominanting set problem to SAT}
 
 \subsection*{Description}
 
@@ -120,21 +120,28 @@ Clauses:
   \item Only one node can be the $r$-th node of the $\{DS\}$:\\
         For each $r$, $i<j$: $\neg x_i^r \lor \neg x_j^r$
   \item At least one of the $i$-th node or one of its neighbour nodes must be in the $\{DS\}$:\\
-        For each $i$ and its neighbours\footnote{Node $adj(i, m)$ is the $m$-th the neighbour of the $i$-th node.}: $(x_i^1 \lor x_{adj(i, 1)}^1 \lor x_{adj(i, 2)}^1 \lor ... \lor x_{adj(i, m)}^1) \lor ... \lor (x_i^r \lor x_{adj(i, 1)}^r \lor x_{adj(i, 2)}^r \lor ... \lor x_{adj(i, m)}^r)$
+        For each $i$ and its neighbours\footnote{Node $adj(i, m)$ is the $m$-th neighbour of the $i$-th node.}: $(x_i^1 \lor x_{adj(i, 1)}^1 \lor x_{adj(i, 2)}^1 \lor ... \lor x_{adj(i, m)}^1) \lor ... \lor (x_i^r \lor x_{adj(i, 1)}^r \lor x_{adj(i, 2)}^r \lor ... \lor x_{adj(i, m)}^r)$
 \end{enumerate}
 
 \subsection*{Code}
 
-Code for the reduction of dominanting set to SAT problem is available in \textit{src/reduce\_ds\_sat.py}.
+Code for the reduction of the dominanting set to SAT problem is available in \textit{src/reduce\_ds\_sat.py}.
 
+\newpage
 \subsection*{Solutions}
 
+We have manually performed search with bisection and found the following sizes of the minimal dominanting sets:
+
 \begin{enumerate}
-  \item \textit{g1.col}:
-  \item \textit{g2.col}:
-  \item \textit{g3.col}:
-  \item \textit{g4.col}:
-  \item \textit{g5.col}:
+  \item \textit{g1.col}: 40
+  \item \textit{g2.col}: 3
+  \item \textit{g3.col}: 15
+  \item \textit{g4.col}: Not found any solution
+  \item \textit{g5.col}: 5
 \end{enumerate}
+
+\section*{3. Other}
+
+We have also implemented reduction of the vertex cover (\textit{src/reduce\_vc\_sat.py}) and clique pro-blem (\texit{src/reduce\_clique\_sat.py}) the to SAT.
 
 \end{document}
