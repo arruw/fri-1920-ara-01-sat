@@ -1,9 +1,19 @@
 # Approximation and randomized algorithms - Assignment 01 - SAT 
 
-https://www.nitt.edu/home/academics/departments/cse/faculty/kvi/NPC%20DOMINATING%20SET.pdf
-https://www.cs.umd.edu/class/fall2017/cmsc451-0101/Lects/lect21-np-clique-vc-ds.pdf
+## Requirements
+- Ensure you have installed: `make`, `python3`, `docker`
+- Install local virtual env and install pip packages: `make install`
 
-## Commands
+## Dominanting sets
+```bash
+$ make ds_sat G=input/g1.col K=40   # ~10 minutes to solve
+$ make ds_sat G=input/g2.col K=3    # ~1 second to solve
+$ make ds_sat G=input/g3.col K=15   # ~2 minutes to solve
+$ make ds_sat G=input/g4.col K=
+$ make ds_sat G=input/g5.col K=5    # ~2 minutes to solve
+```
+
+## Other Commands
 ```bash
 # create local virtual env and install pip packages
 $ make install
@@ -12,13 +22,16 @@ $ make install
 $ make nq_sat N=4
 
 # solve k-clique problem
-$ make clique_sat G=input/g2.col K=2
+$ make clique_sat G=input/test_rocket.col K=3
 
 # solve vertex cover problem
-$ make vc_sat G=input/g2.col K=2
+$ make vc_sat G=input/test_rocket.col K=3
 
 # solve dominanting set problem
-$ make ds_sat G=input/g2.col K=2
+$ make ds_sat G=input/test_rocket.col K=2
+
+# find approximate sizes of dominanting sets using networkx
+$ make ds_nx_approx 
 
 # run unit tests
 $ make test

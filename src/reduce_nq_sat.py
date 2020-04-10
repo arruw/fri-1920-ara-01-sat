@@ -39,6 +39,6 @@ if __name__ == "__main__" and os.getenv("DEBUG", "false") != "true":
   n = int(sys.argv[1])
   sat_result = reduce_nq_sat(n)
   print_cnf_sat(sat_result)
-else:
+elif __name__ == "__main__" and os.getenv("DEBUG", "false") == "true":
   sat_result = reduce_nq_sat(4)
   print_cnf_sat(sat_result)

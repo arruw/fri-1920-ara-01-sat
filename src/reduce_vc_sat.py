@@ -42,6 +42,6 @@ if __name__ == "__main__" and os.getenv("DEBUG", "false") != "true":
   k = int(sys.argv[2])
   sat_result = reduce_vc_sat(read_dimacs_graph(graphFile), k)
   print_cnf_sat(sat_result)
-else:
+elif __name__ == "__main__" and os.getenv("DEBUG", "false") == "true":
   sat_result = reduce_vc_sat(read_dimacs_graph("input/test_rocket.col"), 3)
   print_cnf_sat(sat_result)
