@@ -22,7 +22,6 @@ nq_sat:
 	@echo Solving SAT...
 	@docker run --rm -i -v "$(shell pwd)/output/sat_nq.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_nq.solution ||:
 	@cat output/sat_nq.solution
-	# @$(VENV)/python3 src/map.py $(N) output/sat_nq.solution
 
 clique_sat: G=input/g2.col
 clique_sat: K=2
@@ -32,7 +31,6 @@ clique_sat:
 	@echo Solving SAT...
 	@docker run --rm -i -v "$(shell pwd)/output/sat_clique.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_clique.solution ||:
 	@cat output/sat_clique.solution
-	# @$(VENV)/python3 src/map.py $(K) output/sat_clique.solution
 
 vc_sat: G=input/g2.col
 vc_sat: K=2
@@ -42,7 +40,6 @@ vc_sat:
 	@echo Solving SAT...
 	@docker run --rm -i -v "$(shell pwd)/output/sat_vc.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_vc.solution ||:
 	@cat output/sat_vc.solution
-	# @$(VENV)/python3 src/map.py $(K) output/sat_vc.solution
 
 ds_sat: G=input/g2.col
 ds_sat: K=2
@@ -52,11 +49,6 @@ ds_sat:
 	@echo Solving SAT...
 	@docker run --rm -i -v "$(shell pwd)/output/sat_ds.dimacs:/input.dimacs:ro" msoos/cryptominisat --verb $(VERB) --threads $(THREADS) /input.dimacs > output/sat_ds.solution ||:
 	@cat output/sat_ds.solution
-	# @$(VENV)/python3 src/map.py $(K) output/sat_ds.solution
-
-ds_nx_approx:
-	@$(VENV)/python3 src/find_approximate.py > output/ds_nx_approx.output
-	@cat output/ds_nx_approx.output
 
 test:
 		$(VENV)/python3 -m unittest discover --verbose
